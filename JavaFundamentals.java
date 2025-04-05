@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Study {
+public class JavaFundamentals {
 	public static void main(String[] args) {
 		//项目 模块 包 类
 		//'\t'制表符的作用：把前面字符串的长度补齐到8，或者8的整数倍。最少补1个空格，最多补8个空格。
@@ -218,8 +218,23 @@ public class Study {
 		//Math abs absExact(jdk15) ceil floor round max pow random[0,1) sqrt cbrt 
 		//判断质数 一个整数的两个因子中一个因子必定小于等于平方根，另一个因子必定大于等于平方根
 		//计算机中的时间原点 1970年1月1日 C语言的生日 我国有几小时差别
+		
 		//System exit currentTimeMillis arraycopy 如果数据原数组和目的地数组都是基本数据类型，那么两者的类型必须保持一致，否则会报错 在拷贝的时候需要考虑数组的长度，如果超出范围也会报错 如果数据原数组与目的数组都是引用类型，那么子类类型可以赋值给父类类型
-		//
+		
+		//Runtime 要用getRuntime获取对象才行 exit availableProcessors maxMemory totalMemory freeMemory exec
+		
+		//Object toString（和直接打印对象效果相同，如果打印一个对象想看到属性值就重写toString方法就可以了，因为底层用了这个方法） equals（基本数据类型不能用，然后Object和String类的equals不一样，比较对象时会重写，比较对象属性值是否相同） 
+		//clone 默认浅克隆（浅拷贝） 重写Object中的clone方法，让javabean类实现Cloneable接口（如果一个接口里面没有抽象方法，表示当前的接口是一个标记型接口），创建原对象并调用clone就可以了
+		//浅拷贝 不管对象内部的属性是基本数据类型还是引用数据类型，都完全拷贝过来
+		//深拷贝 基本数据类型拷贝过来，String在串池里管理所以会复用，还是同样的地址，但是引用数据类型就是新的地址
+		//可以利用第三方工具类gson
+		
+		//Objects equals（先做非空判断） 判断对象 isNull nonNull
+		
+		//BigInteger 静态方法BigInteger.valueOf(100) 构造方法new BigInteger("100")... add subtract multtply divide divideAndRemainder equals pow max/min intValue LongValue
+		//如果BigInteger表示的数字没有超出long的范围，可以用静态方法获取（在-16~+16之间做了优化，会节约内存），如果超出long的范围，可以用构造方法获取。对象一旦创建，BigInteger内部记录的值不能发生改变，只要进行计算都会产生一个新的BigInteger对象。
+		
+		//BigDecimal 
 		}
 	}
 }
