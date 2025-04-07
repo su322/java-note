@@ -53,6 +53,7 @@ public class JavaFundamentals {
 		//this的本质是代表方法调用者的地址值，是由虚拟机赋值的
 		//字符串用next()
 		//键盘录入的两套体系不能混用：nextInt nextLine！
+		//可以统一用nextLine
 		//先用nextInt再用nextLine会导致下面的nextLine接收不到，因为它直接把nextInt没有接受的回车接受了
 		//字符串在创建之后是不会发生改变的。
 		//字符串的创建方式还有
@@ -86,7 +87,6 @@ public class JavaFundamentals {
 		//打印对象不是地址值，而是集合中存储的数据内容，在展示的时候会拿[]把所有的数据进行包裹
 		//增删改查
 		//add remove索引或者元素 set根据索引 get根据索引 size初始值是0
-		//基本数据类型对应的包装类就是首字母小写变大写，除了char是Character，int是Integer
 		//ctrl+p可以看构造函数，可以对着写
 		//在Java中，case "1" -> 这种语法是Java12引入的增强版switch表达式的一部分（也称为"箭头语法"）。它与传统的case "1":有以下区别：箭头->表示：不需要使用break语句（自动防止case穿透），右侧只能跟一个表达式、代码块或throw语句，更简洁的语法风格
 		//ctrl+alt+L 快速整理代码格式 会和qq快捷键冲突
@@ -234,7 +234,33 @@ public class JavaFundamentals {
 		//BigInteger 静态方法BigInteger.valueOf(100) 构造方法new BigInteger("100")... add subtract multtply divide divideAndRemainder equals pow max/min intValue LongValue
 		//如果BigInteger表示的数字没有超出long的范围，可以用静态方法获取（在-16~+16之间做了优化，会节约内存），如果超出long的范围，可以用构造方法获取。对象一旦创建，BigInteger内部记录的值不能发生改变，只要进行计算都会产生一个新的BigInteger对象。
 		
-		//BigDecimal 
+		//BigDecimal 表示较大的小数和解决小数运算精度失真问题 如果要表示的数字不大，没有超出double的取值范围，建议使用静态方法，否则使用构造方法
+		
+		//正则表达式 regex 字符串.matches("条件") 字符类 预定义字符类 数量词
+		//Pattern p = Pattern.compile("条件");
+		//Matcher m = p.matcher(外面传的str);
+		//boolean b = m.find();//一次
+		//String s1 = m.group;
+		//sout(s1);
+		//正则的规则有点太多了，自己查吧，我觉得ai也很擅长
+		//贪婪 非贪婪 分组：捕获分组 非捕获分组...
+		
+		//格林威治时间GMT 原子钟UTC
+		//Date date = new Date(不写或指定毫秒值); setTime(毫秒值) getTime()
+		//new SimpleDateFormat(pattern) parse format
+		//Calender 不能直接创建对象 getInstance getTimeInMillis setTimeInMillis get set add
+		//jdk8新增时间相关类 ZoneIds Instant ZonedDateTime DateTimeFormatter LocalDate LocalTime LocalDateTime Duration Period ChronoUnit
+		
+		//基本数据类型对应的包装类就是首字母小写变大写，除了char是Character，int是Integer
+		//构造方法和静态方法获取Integer的区别：
+		//静态方法valueOf：在实际开发中，-128~127之间的数据，用的比较多，如果每次都是new对象，太浪费内存了，所以提前把这个范围之内的每一个数据都创建好对象，如果要用到了不会创建新的，而是返回已经创建的；构造方法因为是new出来的，java中每一次new都是创建一个新的对象，地址不一样。
+		//jdk5提出自动装箱：把基本数据类型自动变成对应的包装类，自动拆箱：把包装类自动变成对象的基本数据类型
+		//8种包装类中，除了Character都有对应的parseXxx的方法，进行类型转换
+		//sb.insert(0, data) 可以倒着插入 append不可以
+		//LocalDate里的isLeapYear可以直接判断闰年
+		
+		//基本查找 二分查找 分块查找 插值查找 斐波那契查找 树表查找 哈希查找
+		//
 		}
 	}
 }
