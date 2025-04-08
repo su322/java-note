@@ -264,6 +264,11 @@ public class JavaFundamentals {
 		
 		//递归一定要有出口，否则会栈内存溢出 书写递归的两个核心：找出口：什么时候不再调用方法；找规则：如何把大问题变成规模较小的问题（找差不多的部分）
 		
+		//Arrays包括了对数组排序和搜索的各种方法 toString binarySearch copyOf copyOfRange fill sort（只有一个参数的底层用的是快速排序，有两个参数的用的是插入排序+二分查找，第二个参数用new Comparator<Integer> 匿名内部类定义规则 o1-o2是升序 o2-o1是降序）
+		
+		//jdk8以后有 lambda表达式 只能简化函数式接口的匿名内部类的写法
+		//函数式接口：有且仅有一个抽象方法的接口叫做函数式接口，接口上方可以加@FunctionalInterface注解
+		//(形参) -> {方法的方法体}
 		//
 		}
 	}

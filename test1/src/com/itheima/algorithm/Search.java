@@ -20,7 +20,7 @@ public class Search {
         return list;
     }
 
-    //二分查找 要求数组中的数据必须是有序的
+    //二分查找 要求数组中的数据必须是有序的 和猜数字比较像
     public static int binarySearch(int[] arr, int value) {
         int left = 0;
         int right = arr.length - 1;

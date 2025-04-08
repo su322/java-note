@@ -1,5 +1,7 @@
 package com.itheima.algorithm;
 
+import java.util.Arrays;
+
 public class Sort {
     public static void main(String[] args) {
         int[] arr = {5, 3, 7, 1, 2, 6, 4, 9, 8};
@@ -7,7 +9,8 @@ public class Sort {
 //        SelectionSort(arr);
 //        InsertionSort(arr);
         QuickSort(arr, 0, arr.length - 1);
-        PrintArray(arr);
+//        PrintArray(arr);
+        System.out.println(Arrays.toString(arr));
     }
 
     public static void PrintArray(int[] arr) {
