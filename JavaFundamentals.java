@@ -268,8 +268,40 @@ public class JavaFundamentals {
 		
 		//jdk8以后有 lambda表达式 只能简化函数式接口的匿名内部类的写法
 		//函数式接口：有且仅有一个抽象方法的接口叫做函数式接口，接口上方可以加@FunctionalInterface注解
-		//(形参) -> {方法的方法体}
-		//
+		//(形参) -> {方法的方法体} Arrays.sort(arr, (o1, o2) -> o1 - o2);
+		
+		//枚举，听了一集20天速通的，讲的不如阿伟
+		//public enum A{
+		//	X, Y, Z;
+		//}
+		//枚举类的第一行只能罗列一些名称，这些名称都是常量，并且每个常量记住的都是枚举类的一个对象
+		//枚举类的构造器都是私有的，因此对外不能创建对象，枚举都是最终类，不可以被继承，从第二行开始，可以定义类的其他各种成员
+		
+		//单列集合的祖宗接口Collection 接口List的实现类ArrarList LinkedList Vector 接口Set的实现类HashSet LinkedHashSet TreeSet
+		//List系列集合：添加的元素是有序、可重复、有索引的
+		//Set系列集合：添加的元素是无序、不重复、无索引的
+		
+		//Collection里 add clear remove contains(底层用的equals，对象用不了要重写) isEmpty size
+		//迭代器 不依赖索引
+		//Iterator<String> it = list.iterator();
+		//while(it.hasNext()){//判断当前位置是否有元素
+		//	String str = it.next();//获取当前位置元素并移动指针
+		//	sout(str);
+		//}
+		//迭代器遍历完毕，指针不会复位，要第二次只能获取一个新的。迭代器遍历时，不能用集合的方法进行增加或者删除，删除必须用迭代器的方法，添加暂时没有方法？。
+		//增强for底层就是迭代器，所有的单列集合和数组才能用增强for
+		//用.for快速生成
+		//Lambda表达式遍历 forEach
+		//利用匿名内部类：list.forEach(new ...
+		//利用lambda表达式：list.forEach(s -> sout(s));
+		
+		//List的特有方法 add remove set get
+		//调用方法时如果方法出现了重载现象，优先调用实参跟形参类型一致的那个方法
+		//如果remove(1)，会优先删除索引，如果装箱成Integer，就会删除这个元素
+		//List有五种遍历方式 除了上面这三种，还有普通for循环，列表迭代器ListIterator
+		
+		//数组和链表特点 一个查询快，增删慢，一个查询慢，增删相对快
+		//ArrayList底层
 		}
 	}
 }
