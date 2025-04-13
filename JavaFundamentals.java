@@ -359,8 +359,25 @@ public class JavaFundamentals {
 		//如果以后要数据去重，默认使用HashSet，还要存取有序的话再用LinkedHashSet，因为效率更低
 		
 		//TreeSet集合排序默认的规则：对于数值类型：Integer Double默认按照从小到大的顺序进行排序，对于字符、字符串类型，按照字符在ASCII码表中的数字升序进行排列
-		//TreeSet底层是红黑树 第一种比较方式： 默认排序/自然排序：默认的规则和上面一样，如果是自定义类里重写compareTo接口中的compareTo方法，return的this.getxxx()表示当前要添加的元素，o.getxxx()表示红黑树中已经存在的元素，return正数表示要添加的元素是大的，存右边，负数表示要添加的元素是小的，存左边，0表示已存在，不存。
+		//TreeSet底层是红黑树 第一种比较方式： 默认排序/自然排序：默认的规则和上面一样，如果是自定义类里重写compareTo接口中的compareTo方法，return的this.getxxx()表示当前要添加的元素，o.getxxx()表示红黑树中已经存在的元素，return正数表示要添加的元素是大的，存右边，负数表示要添加的元素是小的，存左边，0表示已存在，不存。用三元运算符可以实现连续的复杂规则。
 		//第二种： 比较器排序：创建TreeSet的时候带一个new Comparator参数，第一种不能满足需求才用第二种。两种都可以写复杂的规则。
+		
+		//双列集合 键值对(对象) entry对象
+		//Map HashMap->LinkedHashMap TreeMap Hashtable->Properties
+		//put remove clear containsKey containsValue isEmpty size
+		//在put添加数据中，如果键是存在的，会把原有的键值对覆盖，返回被覆盖的值；如果键不存在，直接添加键值对，返回null。 remove返回值
+		//Map集合的遍历方式
+		//1、通过键找值 把键放到一个单列集合中再用键遍历Map Set<String> keys = map.keySet;
+		//2、通过键值对对象进行遍历 Set<Map.Entry<String,String>> entries = map.entrySet(); for(Map.Entry<String,String> entry : entries) entry.getKey(); entry.getValue();
+		//3、lambda表达式 map.forEach(new...) 或者(key, value)->{...} accept两个参数就是key和value 底层就是利用第二种方式
+		
+		//HashMap直接使用Map里面的方法就可以了，特点都是由键决定的：无序、不重复、无索引。HashMap和HashSet底层原理是一样的，都是哈希表结构。
+		//依赖hashCode方法和equals方法保证键的唯一，如果键存储的是自定义对象，需要重写hashCode和equals方法，如果值存储自定义对象，不需要重写hashCode和equals方法
+		//LinkedHashMap：有序、不重复、无索引
+		//TreeMap：不重复、无索引、可排序 对键进行排序 默认按照从小到大的顺序进行排序，也可以自己规定排序规则
+		
+		//计数器思想很好，但是如果统计的东西比较多就不好写，可以利用map进行统计。思想是循环从目标中获取要存的键到一开始是空的集合中判断是否存在，如果不存在表示是第一次出现，存为1，如果存在，表示当前键又出现一次，自增，再存，就覆盖了
+		//如果没有要求对结果进行排序，默认使用HashMap，要求排序使用TreeMap。
 		//
 		}
 	}
