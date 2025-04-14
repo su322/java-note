@@ -315,7 +315,7 @@ public class JavaFundamentals {
 		//指定泛型的具体类型后，可以传入该类类型或者其子类类型。
 		//泛型类：public class ArrayList<E>{} 自己定义的话里面的方法可以模仿java底层写的，先Object，再强转
 		//泛型方法：public static <E> void show(E e){} 写在修饰符后面
-		//要传入多个参数的话形参可以写 E...e
+		//要传入多个参数的话形参可以写 E...e 可变参数 底层是一个数组
 		//泛型接口：public interface List<E>{}
 		//如何使用一个带泛型的接口？1、实现类给出具体类型 2、实现类延续泛型，创建对象时再确定。
 		//1、public class MyArrayList implements List<String>{}
@@ -378,7 +378,13 @@ public class JavaFundamentals {
 		
 		//计数器思想很好，但是如果统计的东西比较多就不好写，可以利用map进行统计。思想是循环从目标中获取要存的键到一开始是空的集合中判断是否存在，如果不存在表示是第一次出现，存为1，如果存在，表示当前键又出现一次，自增，再存，就覆盖了
 		//如果没有要求对结果进行排序，默认使用HashMap，要求排序使用TreeMap。
-		//
+		//ctrl+f12查看文件内结构
+		//HashMap TreeMap底层原理比较复杂，可以看视频
+		
+		//java.util.Collections 不是集合，而是集合的工具类 addAll shuffle打乱List集合元素的顺序
+		//如果不想让别人修改集合中的内容，可以用不可变集合 List.of() Set.of(不重复的参数) Map.of(最多传20个键值对) 有方法可以写更多键值对的不可变集合，看视频 jdk10以后有map.copyOf()
+		
+		//Stream流 list1.stream().filter(Lambda表达式).filter()...forEach
 		}
 	}
 }
