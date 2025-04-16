@@ -385,6 +385,17 @@ public class JavaFundamentals {
 		//如果不想让别人修改集合中的内容，可以用不可变集合 List.of() Set.of(不重复的参数) Map.of(最多传20个键值对) 有方法可以写更多键值对的不可变集合，看视频 jdk10以后有map.copyOf()
 		
 		//Stream流 list1.stream().filter(Lambda表达式).filter()...forEach
+		//先得到一条Stream流（流水线），并把数据放上去，再利用Stream流中的各种API进行各种操作，有中间方法和终结方法。
+		//单列集合如上，双列集合没有，但是可以用key或者entry转换成单列，数组用Arrays.stream()，零散数据用Stream.of()
+		//Stream.of的细节：方法的形参是一个可变参数，可以传递一堆零散的数据，也可以传递数组，但是数组必须是引用数据类型的，如果传递基本数据类型，是会把整个数组当成一个元素，放到Stream中。
+		//中间方法 filter limit skip distinct concat map 返回新的Stream流，原来的只能使用一次，建议使用链式编程。修改Stream流中的数据，不会影响原来集合或者数组中的数据。
+		//终结方法 forEach count 包含收集方法 toArray collect(Collators.to???)
+		//方法引用：把已经有的方法拿过来用，当做函数式接口中抽象方法的方法体
+		//使用条件：1、引用处必须是函数式接口 2、被引用的方法必须已经存在 3、被引用方法的形参和返回值需要跟抽象方法保持一致 4、被引用方法的功能要满足当前需求
+		//写法：Arrays.sort(arr, FunctionDemo1::subtraction);	方法引用符::
+		//
+		//
+		//
 		}
 	}
 }
