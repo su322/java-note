@@ -405,6 +405,14 @@ public class JavaFundamentals {
 		//finally 无论是否发生异常，里面的代码都会被执行 即使有return也会先执行
 		
 		//线程是操作系统能够进行运算调度的最小单位，包含在进程之中，是进程的实际运作单位
+		//并发：在同一时刻，有多个指令在单个CPU上交替执行
+		//并行：在同一时刻，有多个指令在多个CPU上同时执行
+		//多线程的实现方式：1、继承Thread类的方式进行实现 2、实现Runnable接口的方式进行实现 3、利用Callable接口和Future接口方式实现
+		//细节：JVM启动后，会自动启动多条线程，其中有一条main线程，作用是去调用main方法，并执行里面的代码
+		//getName setName currentThread sleep setPriority getPriority setDaemon（守护线程：当其他的非守护线程执行完毕之后，守护线程会陆续结束） yield（出让线程/礼让线程，让执行权尽可能均匀，了解） join（插入线程/插队线程，插入到当前线程之前，了解）
+		//同步代码块：把操作共享数据的代码锁起来 synchronized(一定要是唯一的锁对象，可以写本类类名.class){操作共享数据的代码} 锁默认打开，有一个线程进去了，锁自动关闭；里面的代码全部执行完毕，线程出来，锁自动打开。
+		//同步方法：把synchronized关键字加到方法上 锁对象不能自己指定：非静态：this 静态：当前类的字节码文件对象
+		//StringBuilder是线程不安全的，StringBuffer是线程安全的。
 		//
 		}
 	}
