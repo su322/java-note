@@ -3,3 +3,7 @@ Nginx是一款轻量级的Web服务器/反向代理服务器及电子邮件（IM
 Maven中的坐标是资源的唯一标识，通过该坐标可以唯一定位资源位置
 依赖具有传递性，也可以<exclusions><exclusion>主动断开不需要的依赖 <scope>可以设置依赖的作用范围compile test provided runtime
 Maven的生命周期是为了对所有的maven项目构建过程进行抽象和统一，生命周期有clean default site，在同一套生命周期中，当运行后面的阶段时，前面的阶段都会运行
+HTTP请求数据格式：请求行、请求头、请求体
+GET请求参数在请求行中，没有请求体，GET请求大小是有限制的；POST请求参数在请求体中，POST请求大小是没有限制的
+HTTP响应格式：响应行、响应头、响应体
+Tomcat：开源免费的轻量级web服务器，支持Servlet/JSP少量JavaEE规范，也被称为web容器、servlet容器，于springboot的起步依赖中内嵌
