@@ -7,3 +7,14 @@ HTTP请求数据格式：请求行、请求头、请求体
 GET请求参数在请求行中，没有请求体，GET请求大小是有限制的；POST请求参数在请求体中，POST请求大小是没有限制的
 HTTP响应格式：响应行、响应头、响应体
 Tomcat：开源免费的轻量级web服务器，支持Servlet/JSP少量JavaEE规范，也被称为web容器、servlet容器，于springboot的起步依赖中内嵌
+三层架构：Cotroller，控制层，接收请求，响应数据；Service，业务逻辑层，逻辑处理；dao，数据访问层（Data Access Object）（持久层）负责数据访问操作，包括数据的增删改查
+面向接口编程不错
+软件设计原则：高内聚低耦合
+控制反转：Inverse Of Control，简称IOC，对象的创建控制权由程序自身转移到外部（容器），这种思想称为控制反转
+依赖注入：Dependency Injection，简称DI，容器为应用程序提供运行时，所依赖的资源，称之为依赖注入
+Bean对象：IOC容器中创建、管理的对象，称之为bean
+步骤：实现类用@Component（可以用下面的衍生注解替换）交给IOC容器管理，要用到的其他类的对象用@AutoWired进行依赖注入
+@Component的衍生注解：@Controller 标注在控制器类上（RestController已经包括了Controller），@Service 标注在业务类上，@Repository 标注在数据访问类上（由于与mybatis整合，用得少）
+前面声明的注解要想生效，还需要被组件扫描注解@ComponentScan扫描，它虽然没有显式配置，但是实际上已经包含在了启动类声明注解中，默认扫描的范围是启动类所在包及其子包
+如果同时写了多个@Service，会不知道自动装配哪一个Bean，就会报错，也可以在其中一个上面加上@Primary，就使这个Bean生效，或者可以在@Autoawired下面加上@Qualifier("想要使用的Bean，没指定名字默认是类名，首字母小写")，或者可以在即将创建对象的那行语句的上面加上@Resource("同样的")，不用写@Service
+@Resource与@AutoWired的区别：前者是JDK提供的注解，后者是spring框架提供的注解；前者如果写name属性是是按照名称注入，不写是按照类型注入，后者默认是按照类型注入
