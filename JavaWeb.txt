@@ -43,7 +43,31 @@ case 表达式 when 值1 then 结果2 when 值2 then 结果2 ... else ... end
 多表查询中，需要消除无效的笛卡尔积
 分类：	连接查询： 
 			内连接：相当于查询A、B交集部分数据
+			隐式 select tb_emp.name,tb_dept.name from tb_emp,tb_dept where tb_emp.dept_id = tb_dept.id;
+			显式 select tb_emp.name,tb_dept.name from tb_emp inner join tb_dept on tb_emp.dept_id = tb_dept.id;
 			外连接：
-				左外连接：查询左表所有数据（包括交集）
-				右外连接：查询右表所有数据（包括交集）
-		子查询
+				左外连接：查询左表所有数据（包括交集）left join on
+				右外连接：查询右表所有数据（包括交集）right join on
+		子查询：
+			标量子查询 where dept_id = (select id from tb_dept where name = '教研部');
+			列子查询 where dept_id in (2,3);
+			行子查询 where (entrydate,job)=('2007-01-01',2);
+			表子查询 select e.*, d.name from (select * from tb_emp where entrydate > '2006-01-01') e, tb_dept d where e.dept_id = d.id;
+上面写的只是部分举例
+
+事务：一组操作的集合，是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。
+四大特性：
+		原子性：事务是不可分割的最小单元，要么全部成功，要么全部失败
+		一致性：事务完成时，必须使所有的数据都保持一致状态
+		隔离性：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行
+		持久性：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的
+start transaction;
+...
+commit;
+rollback;
+
+索引是帮助数据库高效获取数据的数据结构，缺点是会占用存储空间，大大提高了查询效率，同时却也降低了insert、update、delete的效率
+默认B+树（多路平衡搜索树）结构组织的索引
+主键字段，在建表时，会自动创建主键索引。添加唯一约束时，数据库实际上会添加唯一索引
+
+MyBatis是一款优秀的持久层框架，用于简化JDBC的开发
