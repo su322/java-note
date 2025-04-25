@@ -77,3 +77,10 @@ JDBC(Java DataBase Connectivity)：使用java语言操作关系型数据库的�
 数据库连接池是个容器，负责分配、管理数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是重新建立一个，释放空闲时间超过最大空闲时间的连接，来避免因为没有释放连接而引起的数据库连接遗漏 最好的有阿里巴巴的druid 和springboot默认的hikari
 Lombok是一个实用的Java类库，能通过注解的形式自动生成构造器、getter/setter、equals、hashcode、toString
 等方法，并可以自动化生成日志变量，简化java开发、提高效率@Data @NoArgsContructor @AllArgsContructor 我感觉是看起来简洁
+
+预编译SQL 性能更高 更安全（防止SQL注入）
+使用#{...}占位符 执行SQL时，会将#{...}替换为?，生成预编译SQL，会自动设置参数值。使用时机：参数传递，都使用#{...}
+使用${...}占位符 拼接SQL，直接将参数拼接在SQL语句中，存在SQL注入问题。使用时机：如果对表名、列表进行动态设置时使用
+
+数据库数据到实体类的映射封装：起别名 手动结果映射 开启驼峰命名
+concat 字符串拼接函数 concat('%', '#{name}', '%') 可以写在sql语句中
