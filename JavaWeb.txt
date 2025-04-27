@@ -84,3 +84,43 @@ Lombok是一个实用的Java类库，能通过注解的形式自动生成构造�
 
 数据库数据到实体类的映射封装：起别名 手动结果映射 开启驼峰命名
 concat 字符串拼接函数 concat('%', '#{name}', '%') 可以写在sql语句中
+
+XML映射文件的名称与Mapper接口名称一致，并且将XML映射文件和Mapper接口放置在相同包下（同包同名）。
+XML映射文件的namespace属性为Mapper接口全限定名一致。
+XML映射文件中sql语句的id与Mapper接口中的方法名一致，并保持返回类型一致（全类名）。
+
+随着用户的输入或外部条件的变化而变化的SQL语句，我们称为动态SQL。
+1. <if>
+用于判断条件是否成立，如果条件为true，则拼接SQL。
+形式:<if test="name != null">..</if>
+2. <where>
+where元素只会在子元素有内容的情况下才插入where子句，而且会自动去除子句的开头的AND或OR
+3. <set>
+动态地在行首插入SET关键字，并会删掉额外的逗号。（用在update语句中）
+
+<foreach>
+SQL语句：delete from emp where id in (1,2,3);
+接口方法：
+#批量删除
+public void deleteBylds(List<Integer> ids);
+XML映射文件：
+<delete id="deleteBylds">
+	delete from emp where id in
+	<foreach collection="ids" item="id" separatqr="," open="(" close=")">
+		#{id}
+	</foreach>
+</delete>
+
+sql片段
+<sql>：定义可重用的SQL片段。
+<include>：通过属性refid，指定包含的sql片段。
+
+开发规范-Restful
+REST(Representational StateTransfer)：表述性状态转换，它是一种软件架构风格
+URL定位资源，HTTP动词描述操作
+REST是风格，是约定方式，约定不是规定，可以打破。
+描述模块的功能通常使用复数，也就是加s的格式来描述，表示此类资源，而非单个资源。如：users、emps、books...
+
+@slf4j 就可以用log.info了
+
+impl：implementation 实现类集合，不是接口implements
