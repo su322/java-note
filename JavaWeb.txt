@@ -82,7 +82,9 @@ Lombok是一个实用的Java类库，能通过注解的形式自动生成构造�
 使用#{...}占位符 执行SQL时，会将#{...}替换为?，生成预编译SQL，会自动设置参数值。使用时机：参数传递，都使用#{...}
 使用${...}占位符 拼接SQL，直接将参数拼接在SQL语句中，存在SQL注入问题。使用时机：如果对表名、列表进行动态设置时使用
 
-数据库数据到实体类的映射封装：起别名 手动结果映射 开启驼峰命名
+数据库数据到实体类的映射封装：起别名 手动结果映射 开启驼峰命名 （数据库的下划线格式映射成成员变量的小驼峰格式）
+mybatis.configuration.map-underscore-to-camel-case=true
+
 concat 字符串拼接函数 concat('%', '#{name}', '%') 可以写在sql语句中
 
 XML映射文件的名称与Mapper接口名称一致，并且将XML映射文件和Mapper接口放置在相同包下（同包同名）。
@@ -124,3 +126,17 @@ REST是风格，是约定方式，约定不是规定，可以打破。
 @slf4j 就可以用log.info了
 
 impl：implementation 实现类集合，不是接口implements
+
+/**回车 快速注释
+
+条件分页查询：条件查询：动态SQL-XML映射文件 分页查询：PageHelper分页插件
+
+uuid：通用唯一识别码 用于构造唯一的文件名
+在SpringBoot中，文件上传，默认单个文件允许最大大小为1M。如果需要上传大文件，可以进行如下配置：
+#配置单个文件最大上传大小
+spring.servlet.multipart.max-file-size=10MB
+#配置单个请求最大上传大小（一次请求可以上传多个文件）
+spring.servlet.multipart.max-request-size=100MB
+
+#启用mybatis日志输出
+mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
