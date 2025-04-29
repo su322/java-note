@@ -140,3 +140,41 @@ spring.servlet.multipart.max-request-size=100MB
 
 #启用mybatis日志输出
 mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+
+@Value注解通常用于外部配置的属性注入，具体用法为：@Value("${配置文件中的key)")
+
+alt+鼠标左键拖动 可以拖从同一个位置开始的多行代码
+
+SpringBoot提供了多种属性配置方式
+1.application.properties
+
+server.port=8080
+server.address=127.0.0.1
+
+推荐后面的
+2.application.yml
+
+server:
+	port:8080
+	address:127.0.0.1
+
+3.application.yaml
+
+server:
+	port:8080
+	address:127.0.0.1
+	
+yml
+基本语法：
+大小写敏感
+数值前边必须有空格，作为分隔符
+使用缩进表示层级关系，缩进时，不允许使用Tab键，只能用空格（idea中会自动将Tab转换为空格）
+缩进的空格数目不重要，只要相同层级的元素左侧对齐即可
+#表示注释，从这个字符一直到行尾，都会被解析器忽略
+
+@ConfigurationProperties与 @Value
+相同点
+都是用来注入外部配置的属性的。
+不同点
+@Value注解只能一个一个的进行外部属性的注入
+@ConfigurationProperties可以批量的将外部的属性配置注入到bean对象的属性中。
