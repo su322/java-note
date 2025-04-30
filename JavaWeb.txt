@@ -178,3 +178,100 @@ yml
 不同点
 @Value注解只能一个一个的进行外部属性的注入
 @ConfigurationProperties可以批量的将外部的属性配置注入到bean对象的属性中。
+
+json格式要用实体类接收
+
+会话：用户打开浏览器，访问web服务器的资源，会话建立，直到有一方断开连接，会话结束。在一次会话中可以包含多次请求和响应。
+会话跟踪：一种维护浏览器状态的方法，服务器需要识别多次请求是否来自于同一浏览器，以便在同一次会话的多次请求间共享数据。
+
+Cookie
+优点：HTTP协议中支持的技术
+缺点：
+移动端APP无法使用Cookie
+不安全，用户可以自己禁用cookie
+Cookie不能跨域
+
+跨域区分三个维度：协议、IP/域名、端口
+
+Session
+优点：存储在服务端，安全
+缺点：
+服务器集群环境下无法直接使用Session
+Cookie的缺点
+
+令牌技术
+优点：
+支持PC端、移动端
+解决集群环境下的认证问题
+减轻服务器端存储压力
+缺点：需要自己实现
+
+JWT
+简介
+全称:JSON Web Token (https://jwt.io/)
+定义了一种简洁的、自包含的格式，用于在通信双方以json数据格式安全的传输信息。由于数字签名的存在，这些信息是可靠的。
+组成:
+第一部分：Header(头)，记录令牌类型、签名算法等。例如：{"alg":"HS256","type":"JWT"}
+第二部分：Payload(有效载荷)，携带一些自定义信息、默认信息等。例如：{"id":"1","username":"Tom"}
+第三部分：Signature(签名），防止Token被篡改、确保安全性。将header、payload,并加入指定秘钥，通过指定签名算法计算而来。
+
+Base64:是一种基于64个可打印字符（A-Za-Z0-9+/）来表示二进制数据的编码方式。
+
+场景：登录认证。
+1.登录成功后，生成令牌
+2.后续每个请求，都要携带JWT令牌，系统在每次请求处理之前，先校验令牌，通过后，再处理
+
+JWT校验时使用的签名秘钥，必须和生成JWT令牌时使用的秘钥是配套的。
+如果JWT令牌解析校验时报错，则说明JWT令牌被篡改或失效了，令牌非法。
+
+思路
+令牌生成：登录成功后，生成JWT令牌，并返回给前端。
+令牌校验：在请求到达服务端后，对令牌进行统一拦截、校验。
+
+概念：Filter 过滤器，是JavaWeb 三大组件(Servlet、Filter、Listener)之一。
+过滤器可以把对资源的请求拦截下来，从而实现一些特殊的功能。
+过滤器一般完成一些通用的操作，比如：登录校验、统一编码处理、敏感字符处理等。
+
+1.定义Filter：定义一个类，实现Filter接口，并重写其所有方法。
+2.配置Filter：Filter类上加@WebFilter注解，配置拦截资源的路径。引导类上加@ServletComponentScan开启Servlet组件支持。
+
+执行流程：请求-->放行前逻辑-->放行-->资源-->放行后逻辑
+一个web应用中，可以配置多个过滤器，这多个过滤器就形成了一个过滤器链。执行顺序可以想一下
+顺序：注解配置的Filter，优先级是按照过滤器类名（字符串）的自然排序。
+
+概念：Interceptor 拦截器 是一种动态拦截方法调用的机制，类似于过滤器。Spring框架中提供的，用来动态拦截控制器方法的执行。
+作用：拦截请求，在指定的方法调用前后，根据业务需要执行预先设定的代码。
+
+1.定义拦截器，实现HandlerInterceptor接口，并重写其所有方法。
+2.注册拦截器 拦截路径的写法和过滤器有区别
+
+Filter与 Interceptor 两种用一种就可以 都有的话顺序是前者在前，后者在后
+接口规范不同：过滤器需要实现Filter接口，而拦截器需要实现Handlerlnterceptor接口。
+拦截范围不同：过滤器Filter会拦截所有的资源，而Interceptor只会拦截Spring环境中的资源。
+
+步骤
+获取请求url。
+判断请求url中是否包含login，如果包含，说明是登录操作，放行。
+获取请求头中的令牌(token)。
+判断令牌是否存在，如果不存在，返回错误结果（未登录）。
+解析token，如果解析失败，返回错误结果（未登录）。
+放行。
+
+出现异常，该如何处理？
+方案一：在Controller的方法中进行try...catch处理 代码臃触，不推荐
+方案二：全局异常处理器 简单、优雅，推荐
+
+全局异常处理器
+@RestControllerAdvice = @RestController + @ResponseBody
+@ExceptionHandler
+
+示例：
+@RestControllerAdvice
+public class GlobalExceptionHandler{
+	@ExceptionHandler(Exception.class)//捕获所有异常
+	public Result ex(Exception ex) {
+		ex.printStackTrace();
+		return Result.error("对不起，操作失败,请联系管理员");
+	}
+}
+
