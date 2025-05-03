@@ -307,6 +307,13 @@ AOP核心概念
 切面：Aspect，描述通知与切入点的对应关系（通知+切入点）
 目标对象：Target，通知所应用的对象
 
+起步依赖
+<!--AOP-->
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+
 @Component
 @Aspect
 @slf4j
@@ -388,3 +395,74 @@ String methodName = joinPoint.getSignature() .getName();//获取目标方法名
 Object[] args = joinPoint.getArgs(); //获取目标方法运行参数
 写在通知里面的，感觉用不到
 
+优先级(低→高)
+application.yaml（忽略)
+application.yml
+application.properties
+java系统属性（-XXX=XXX)
+命令行参数（--XXX=XXX)
+
+默认情况下，Spring项目启动时，会把bean都创建好放在lOc容器中，如果想要主动获取这些bean，可以通过如下方式：
+根据name获取bean:
+Object getBean(String name)
+根据类型获取bean:
+<T> T getBean (Class<T> requiredType)
+根据name获取bean（带类型转换）：
+<T> T getBean (String name, Class<T> requiredType)
+注意事项：
+上述所说的Spring项目启动时，会把其中的bean都创建好，还会受到作用域及延迟初始化影响，这里主要针对于默认的单例
+非延迟加载的bean而言。
+
+可以通过@Scope注解来进行配置作用域：
+@Scope("prototype")
+注意事项：
+默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化（延迟到第一次使用时）。
+prototype的bean，每一次使用该bean的时候都会创建一个新的实例。
+实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性。
+
+如果要管理的bean对象来自于第三方（不是自定义的），是无法用@Component及衍生注解声明bean的，就需要用到@Bean注解。
+若要管理的第三方bean对象，建议对这些bean进行集中分类配置，可以通过@Configuration注解声明一个配置类。
+config包里新建一个CommonConfig类
+@Configuration //配置类
+public class CommonConfig {
+	//声明第三方bean
+	@Bean	//将当前方法的返回值对象交给IOc容器管理，成为IOc容器bean
+			//通过@Bean注解的name/value属性指定bean名称，如果未指定，默认是方法名
+			//如果第三方bean需要依赖其它bean对象，直接在bean定义方法中设置形参即可，容器会根据类型自动装配
+	public SAXReader reader(DeptService deptService)(
+		System.out.println(deptService);
+		return new SAXReader();
+	}
+}
+
+项目中自定义的，使用@Component及其衍生注解
+项目中引入第三方的，使用@Bean注解
+
+SpringBoot的自动配置就是当spring容器启动后，一些配置类、bean对象就自动存入到了lOc容器中，不需要我们手动去声明，从而简化了开发，省去了繁琐的配置操作。
+
+自动配置原理
+方案一：@ComponentScan组件扫描
+方案二：@Import导入。使用@lmport导入的类会被Spring加载到IOc容器中，导入形式主要有以下几种：
+导入普通类
+导入配置类
+导入ImportSelector接口实现类
+@EnableXxxx注解，封装@Import注解 （方便、优雅）
+
+@SpringBootApplication
+该注解标识在SpringBoot工程引导类上，是SpringBoot中最最最重要的注解。该注解由三个部分组成：
+	@SpringBootConfiguration：该注解与@Configuration注解作用相同，用来声明当前也是一个配置类。
+	@ComponentScan：组件扫描，默认扫描当前引导类所在包及其子包。
+	@EnableAutoConfiguration：SpringBoot实现自动化配置的核心注解。
+	
+@Conditional
+作用：按照一定的条件进行判断，在满足给定条件后才会注册对应的bean对象到SpringIOc容器中。
+位置：方法、类
+@Conditional本身是一个父注解，派生出大量的子注解：
+	@ConditionalOnClass：判断环境中是否有对应字节码文件，才注册bean到IOC容器。
+	@ConditionalOnMissingBean:判断环境中没有对应的bean（类型或名称），才注册bean到IOC容器。
+	@ConditionalOnProperty:判断配置文件中有对应属性和值，才注册bean到IOc容器。
+	
+在实际开发中，经常会定义一些公共组件，提供给各个项目团队使用。而在SpringBoot的项目中，一般会将这些公共组件封装为SpringBoot 的 starter。
+自定义starter看视频吧。。。
+
+maven高级跳了
