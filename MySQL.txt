@@ -77,7 +77,8 @@ Read Committed：每次select,都生成一个快照读。
 RepeatableRead：开启事务后第一个select语句才是快照读的地方。
 Serializable：快照读会退化为当前读。
 MVCC
-全称Multi-VersionConcurrencyControl，多版本并发控制。指维护一个数据的多个版本，使得读写操作没有冲突，快照读为MySQL实现MVCC提供了一个非阻塞读功能。MVCC的具体实现，还需要依赖于数据库记录中的三个隐式字段、undolog日志、readView。
+全称Multi-Version Concurrency Control，多版本并发控制。指维护一个数据的多个版本，使得读写操作没有冲突。MVCC的具体实现，还需要依赖于数据库记录中的三个隐式字段、undolog日志、readView。
+MVCC 是一种机制，快照读是通过它实现的读取方式。
 
 隐藏字段
 含义
@@ -108,15 +109,15 @@ max_trx_id
 creator_trx_id
 ReadView创建者的事务ID
 
-版本链数据访问规则（trx_id：代表是当前事务ID）
-1. trx_id== creator_trx_id？可以访问该版本
+版本链数据访问规则（一条记录的版本 X）
+1. X == creator_trx_id？可以访问该版本
 成立，说明数据是当前这个事务更改的。
-2. trx_id< min_trx_id？可以访问该版本
-成立，说明数据已经提交了。
-3. trx_id>=max_trx_id？不可以访问该版本
-成立，说明该事务是在ReadView生成后才开启。
-4. min_trx_id<= trx_id<= max_trx_id？如果trx_id不在m_ids中是可以访问该版本的
-成立，说明数据已经提交。
+2. X < min_trx_id？可以访问该版本
+成立，说明版本由一个在快照生成前已提交的事务创建。
+3. X >= max_trx_id？不可以访问该版本
+成立，说明这个版本由 ReadView 生成之后的事务创建。
+4. min_trx_id <= X < max_trx_id？如果X不在m_ids中是可以访问该版本的，说明该版本对应事务已提交。
+反之，如果X在m_ids中，说明该版本对应事务是活跃未提交
 
 不同的隔离级别，生成ReadView的时机不同：
 READ COMMITTED：在事务中每一次执行快照读时生成ReadView。
