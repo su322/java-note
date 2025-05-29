@@ -537,3 +537,18 @@ HTTP和WebSocket底层都是TCP连接
 
 ApachePOI是一个处理MiscrosoftOffice各种文件格式的开源项目。简单来说就是，我们可以使用POI在Java程序中对MiscrosoftOffice各种文件进行读写操作。一般情况下，POI都是用于操作Excel文件。
 
+Spring 是最基础的框架，提供 IoC（控制反转）和 AOP（面向切面编程） 等核心功能。
+Spring MVC 是基于 Spring 的 Web 框架，用于构建 Web 应用程序（处理 HTTP 请求、响应）。
+Spring Boot 是基于 Spring 的 快速开发框架，简化了 Spring 应用的配置和部署，默认整合了 Spring MVC。
+关系总结：
+Spring Boot > Spring MVC > Spring（包含关系）
+
+MyBatisPlus（简称MP）是基于MyBatis框架基础上开发的增强型工具，旨在简化开发、提高效率
+https://mybatis.plus/	https://mp.baomidou.com/
+MyBatisPlus特性
+• 无侵入：只做增强不做改变，不会对现有工程产生影响
+• 强大的 CRUD 操作：內置通用 Mapper，少量配置即可实现单表CRUD 操作
+• 支持 Lambda： 编写查询条件无需担心字段写错
+• 支持主键自动生成
+• 内置分页插件
+• ...
