@@ -77,3 +77,58 @@ TYPE key
 DEL key
 该命令用于在 key存在是删除 key
 
+redis的java客户端
+Jedis
+以Redis命令作为方法名称，学习成本低，简单实用。但是Jedis实例是线程不安全的，多线程环境下需要基于连接池来使用
+lettuce
+Lettuce是基于Netty实现的，支持同步、异步和响应式编程方式，并且是线程安全的。支持Redis的哨兵模式、集群模式和管道模式。
+Redisson
+Redisson是一个基于Redis实现的分布式、可伸缩的Java数据结构集合。包含了诸如Map、Queue、Lock、Semaphore、AtomicLong等强大功能
+
+SpringData是Spring中数据操作的模块，包含对各种数据库的集成，其中对Redis的集成模块就叫做SpringDataRedis，官网地址：https://spring.jo/projects/spring-data-redis
+• 提供了对不同Redis客户端的整合（Lettuce和Jedis）
+• 提供了RedisTemplate统一API来操作Redis
+• 支持Redis的发布订阅模型
+• 支持Redis哨兵和Redis集群
+• 支持基于Lettuce的响应式编程
+• 支持基于JDK、JSON、字符串、Spring对象的数据序列化及反序列化
+• 支持基于Redis的JDKCollection实现
+
+RedisTemplate可以接收任意Object作为值写入Redis，只不过写入前会把Object序列化为字节形式，默认是采用JDK
+序列化
+缺点：
+• 可读性差
+• 内存占用较大
+尽管JSON的序列化方式可以满足我们的需求，但依然存在一些问题，为了在反序列化时知道对象的类型，JSON序列化器会将类的class类型写入json结果中，存入Redis，会带来额外的内存开销。
+为了节省内存空间，我们并不会使用JSON序列化器来处理value，而是统一使用String序列化器，要求只能存储String类型的key和value。当需要存储Java对象时，手动完成对象的序列化和反序列化。
+Spring默认提供了一个StringRedisTemplate类，它的key和value的序列化方式默认就是String方式。省去了我们自定义RedisTemplate的过程
+
+@Autowired
+private StringRedisTemplate stringRedisTemplate;
+// JSON工具
+private static final ObjectMapper mapper = new ObjectMapper () ;
+@Test
+void testStringTemplate() throws JsonProcessingException
+// 准备对象
+User user = new User（"虎哥"，18）；
+// 手动序列化
+String json = mapper.writeValueAsString(user);
+// 写入一条数据到redis
+stringRedisTemplate.opsForValue() .set("user:200", json);
+// 读取数据
+String val = stringRedisTemplate.opsForValue ().get ("user:200") ;
+// 反序列化
+User userl = mapper. readValue(val, User.class);
+System.out.println("user1 = " + user1);
+}
+
+总结：
+RedisTemplate的两种序列化实践方案：
+方案一：
+1. 自定义RedisTemplate
+2. 修改RedisTemplate的序列化器为GenericJackson2JsonRedisSerializer
+方案二：
+1. 使用StringRedisTemplate
+2. 写入Redis时，手动把对象序列化为JSON
+3. 读取Redis时，手动把读取到的JSON反序列化为对象
+
